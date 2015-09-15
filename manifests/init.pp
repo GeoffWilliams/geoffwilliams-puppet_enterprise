@@ -43,6 +43,9 @@
 # Copyright 2015 Your name here, unless otherwise noted.
 #
 class puppet_enterprise {
-
+  service { "pe-puppetserver":
+    ensure => running,
+    enable => true,
+  }
 
 }
