@@ -1,6 +1,6 @@
 {
   "name": "geoffwilliams-puppet_enterprise",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "geoffwilliams",
   "summary": "mock version of the puppet_enterprise module -- for RSpec testing",
   "license": "Apache-2.0",
