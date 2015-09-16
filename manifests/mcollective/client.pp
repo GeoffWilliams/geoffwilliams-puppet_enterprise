@@ -16,8 +16,12 @@ define puppet_enterprise::mcollective::client(
 
   if $create_user {
     user { $title:
-      ensure    => present,
-      home_dir  => $home_dir,
+      ensure => present,
+      home   => $home_dir,
+    }
+
+    group { $title:
+      ensure => present,
     }
   }
 }
