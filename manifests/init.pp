@@ -1,48 +1,60 @@
-# Class: puppet_enterprise
-# ===========================
-#
-# Full description of class puppet_enterprise here.
-#
-# Parameters
-# ----------
-#
-# Document parameters here.
-#
-# * `sample parameter`
-# Explanation of what this parameter affects and what it defaults to.
-# e.g. "Specify one or more upstream ntp servers as an array."
-#
-# Variables
-# ----------
-#
-# Here you should define a list of variables that this module would require.
-#
-# * `sample variable`
-#  Explanation of how this variable affects the function of this class and if
-#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#  External Node Classifier as a comma separated list of hostnames." (Note,
-#  global variables should be avoided in favor of class parameters as
-#  of Puppet 2.6.)
-#
-# Examples
-# --------
-#
-# @example
-#    class { 'puppet_enterprise':
-#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#    }
-#
-# Authors
-# -------
-#
-# Author Name <author@domain.com>
-#
-# Copyright
-# ---------
-#
-# Copyright 2015 Your name here, unless otherwise noted.
-#
-class puppet_enterprise {
+class puppet_enterprise(
+  $certificate_authority_host,
+  $certificate_authority_port      = 8140,
+
+  $puppet_master_host,
+  $puppet_master_port              = undef,
+
+  $console_host,
+  $console_port                    = 443,
+
+  # In PE 3.4, it is assumed that the services api and dashboard are running on
+  # the same host as the console. At this time parameters are provided for
+  # changing the service ports for the api and dashboard, but not for changing
+  # either the composite api host or individual service host(s).
+
+  $api_port                        = $puppet_enterprise::params::console_services_api_ssl_listen_port,
+  $dashboard_port                  = 4435,
+
+  $puppetdb_host,
+  $puppetdb_port                   = 8081,
+
+  $database_host,
+  $database_port                   = 5432,
+
+  $dashboard_database_name         = 'console',
+  $dashboard_database_user         = 'console',
+  $dashboard_database_password     = undef,
+
+  $puppetdb_database_name          = 'pe-puppetdb',
+  $puppetdb_database_user          = 'pe-puppetdb',
+  $puppetdb_database_password      = undef,
+
+  $classifier_database_name        = 'pe-classifier',
+  $classifier_database_user        = 'pe-classifier',
+  $classifier_database_password    = undef,
+  $classifier_url_prefix           = $puppet_enterprise::params::classifier_url_prefix,
+
+  $activity_database_name          = 'pe-activity',
+  $activity_database_user          = 'pe-activity',
+  $activity_database_password      = undef,
+  $activity_url_prefix             = $puppet_enterprise::params::activity_url_prefix,
+
+  $rbac_database_name              = 'pe-rbac',
+  $rbac_database_user              = 'pe-rbac',
+  $rbac_database_password          = undef,
+  $rbac_url_prefix                 = $puppet_enterprise::params::rbac_url_prefix,
+
+  $database_ssl                    = true,
+
+  $license_key_path                = '/etc/puppetlabs/license.key',
+
+  $mcollective_middleware_hosts,
+  $mcollective_middleware_port     = 61613,
+  $mcollective_middleware_user     = 'mcollective',
+  $mcollective_middleware_password = $puppet_enterprise::params::stomp_password,
+  $manage_symlinks                 = $::platform_symlink_writable,
+) inherits puppet_enterprise::params {
   service { "pe-puppetserver":
     ensure => running,
     enable => true,
