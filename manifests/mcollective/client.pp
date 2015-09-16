@@ -14,4 +14,10 @@ define puppet_enterprise::mcollective::client(
   $manage_symlinks        = true  
 ) {
 
+  if $create_user {
+    user { $title:
+      ensure    => present,
+      home_dir  => $home_dir,
+    }
+  }
 }
