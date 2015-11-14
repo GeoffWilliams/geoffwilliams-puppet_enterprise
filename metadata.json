@@ -1,6 +1,6 @@
 {
   "name": "geoffwilliams-puppet_enterprise",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "geoffwilliams",
   "summary": "mock version of the puppet_enterprise module -- for RSpec testing",
   "license": "Apache-2.0",
@@ -8,7 +8,6 @@
   "project_page": "https://github.com/GeoffWilliams/geoffwilliams-puppet_enterprise",
   "issues_url": "https://github.com/GeoffWilliams/geoffwilliams-puppet_enterprise/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
   ]
 }
 
