@@ -17,6 +17,11 @@ class puppet_enterprise::profile::agent(
     mode  => undef,
   }
 
+  if $manage_symlinks {
+    File <| tag == 'pe-agent-symlinks' |>
+  }
+
+
   # contents of puppet_enterprise/manifests/symlinks.pp
   # 
   # since the real agent.pp file just includes puppet_enterprise::symlinks 
