@@ -2,6 +2,8 @@ class puppet_enterprise(
   $certificate_authority_host,
   $certificate_authority_port      = 8140,
 
+  String $pcp_broker_host          = $puppet_master_host,
+
   $puppet_master_host,
   $puppet_master_port              = undef,
 
@@ -46,14 +48,18 @@ class puppet_enterprise(
   $rbac_url_prefix                 = $puppet_enterprise::params::rbac_url_prefix,
 
   $database_ssl                    = true,
+  Boolean $database_cert_auth      = true,
 
   $license_key_path                = '/etc/puppetlabs/license.key',
+
+  $send_analytics_data             = true,
 
   $mcollective_middleware_hosts,
   $mcollective_middleware_port     = 61613,
   $mcollective_middleware_user     = 'mcollective',
   $mcollective_middleware_password = $puppet_enterprise::params::stomp_password,
   $manage_symlinks                 = $::platform_symlink_writable,
+  Integer $pcp_broker_port         = 8142,
 ) inherits puppet_enterprise::params {
   service { "pe-puppetserver":
     ensure => running,
