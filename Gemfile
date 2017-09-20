@@ -1,7 +1,11 @@
-source 'https://rubygems.org'
-
-puppetversion = ENV.key?('PUPPET_VERSION') ? "#{ENV['PUPPET_VERSION']}" : ['>= 3.3']
-gem 'puppet', puppetversion
-gem 'puppetlabs_spec_helper', '>= 0.8.2'
-gem 'puppet-lint', '>= 1.0.0'
-gem 'facter', '>= 1.7.0'
+source ENV['GEM_SOURCE'] || 'https://rubygems.org'
+case RUBY_PLATFORM
+when /darwin/
+  gem 'CFPropertyList'
+end
+gem 'puppet', '4.10.8'
+gem 'facter', '2.5.1'
+gem 'rubocop', '0.50.0'
+gem 'rspec-puppet-facts', '1.7.0'
+gem 'pdqtest', '0.8.0'
+gem 'puppet-strings', :git => 'https://github.com/puppetlabs/puppet-strings'
